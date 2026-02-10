@@ -203,9 +203,13 @@ subdir('gst')
 subdir('sys')
 subdir('pkgconfig')
 
-configure_file(output : 'config.h', configuration : cdata)
+conf_h = configure_file(output : 'config.h', configuration : cdata)
 
-vvas_config_headers = ['build/config.h', '../VERSION']
+# Use the object 'conf_h' instead of a hardcoded string path
+vvas_config_headers = [conf_h, '../VERSION']
 install_headers(vvas_config_headers, subdir : 'vvas/')
 
 run_command(python3, '-c', 'import shutil; shutil.copy("../hooks/pre-commit.hook", "../.git/hooks/pre-commit")', check:true)
+
+
+

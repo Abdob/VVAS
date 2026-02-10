@@ -150,13 +150,13 @@ static GstStaticPadTemplate sink_template = GST_STATIC_PAD_TEMPLATE ("sink",
     GST_PAD_SINK,
     GST_PAD_ALWAYS,
     GST_STATIC_CAPS (GST_VIDEO_CAPS_MAKE ("{GRAY8, NV12, BGR, RGB, YUY2,"
-            "r210, v308, GRAY10_LE32, ABGR, ARGB}")));
+            "r210, v308, GRAY10_LE32, ABGR, RGBA}")));
 
 static GstStaticPadTemplate src_template = GST_STATIC_PAD_TEMPLATE ("src",
     GST_PAD_SRC,
     GST_PAD_ALWAYS,
     GST_STATIC_CAPS (GST_VIDEO_CAPS_MAKE ("{GRAY8, NV12, BGR, RGB, YUY2,"
-            "r210, v308, GRAY10_LE32, ABGR, ARGB}")));
+            "r210, v308, GRAY10_LE32, ABGR, RGBA}")));
 
 #define gst_vvas_xfilter_parent_class parent_class
 G_DEFINE_TYPE_WITH_PRIVATE (GstVvas_XFilter, gst_vvas_xfilter,
@@ -219,8 +219,8 @@ get_kernellib_format (GstVideoFormat gst_fmt)
       return VVAS_VFMT_Y10;
     case GST_VIDEO_FORMAT_ABGR:
       return VVAS_VFMT_ABGR8;
-    case GST_VIDEO_FORMAT_ARGB:
-      return VVAS_VFMT_ARGB8;
+    case GST_VIDEO_FORMAT_RGBA:
+      return VVAS_VFMT_RGBX8;
     default:
       GST_ERROR ("Not supporting %s yet", gst_video_format_to_string (gst_fmt));
       return VVAS_VMFT_UNKNOWN;
@@ -249,8 +249,8 @@ get_gst_format (VVASVideoFormat kernel_fmt)
       return GST_VIDEO_FORMAT_GRAY10_LE32;
     case VVAS_VFMT_ABGR8:
       return GST_VIDEO_FORMAT_ABGR;
-    case VVAS_VFMT_ARGB8:
-      return GST_VIDEO_FORMAT_ARGB;
+    case VVAS_VFMT_RGBX8:
+      return GST_VIDEO_FORMAT_RGBA;
     default:
       GST_ERROR ("Not supporting kernel format %d yet", kernel_fmt);
       return GST_VIDEO_FORMAT_UNKNOWN;
