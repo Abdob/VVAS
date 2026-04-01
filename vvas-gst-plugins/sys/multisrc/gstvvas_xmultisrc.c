@@ -930,7 +930,7 @@ vvas_xmultisrc_write_input_registers (GstVvasXMSRC * self, GstBuffer ** inbuf)
     gst_video_frame_unmap (&own_vframe);
     gst_buffer_copy_into (own_inbuf, *inbuf,
         (GstBufferCopyFlags) (GST_BUFFER_COPY_FLAGS |
-            GST_BUFFER_COPY_TIMESTAMPS), 0, -1);
+            GST_BUFFER_COPY_TIMESTAMPS | GST_BUFFER_COPY_META), 0, -1);
     gst_buffer_unref (*inbuf);
     *inbuf = own_inbuf;
   }
@@ -3045,7 +3045,7 @@ gst_vvas_xmultisrc_chain (GstPad * pad, GstObject * parent, GstBuffer * inbuf)
 
     gst_buffer_copy_into (outbuf, inbuf,
         (GstBufferCopyFlags) (GST_BUFFER_COPY_FLAGS |
-            GST_BUFFER_COPY_TIMESTAMPS), 0, -1);
+            GST_BUFFER_COPY_TIMESTAMPS | GST_BUFFER_COPY_META), 0, -1);
     GST_LOG_OBJECT (srcpad,
         "pushing outbuf %p with pts = %" GST_TIME_FORMAT " dts = %"
         GST_TIME_FORMAT " duration = %" GST_TIME_FORMAT, outbuf,
